@@ -1,25 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
+import WomenPage from './components/women/WomenPage.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+class App extends Component {
+  state = {
+    products: [],
+  }
+
+  componentDidMount() {
+    fetch("http://localhost/website/api.php")
+    .then((response) => response.json())
+    .then(products => {
+      console.log(products)
+      this.setState({
+        products: products,
+      })
+    })
+    .catch("error: " + console.error)
+  }
+  render () {
+   return (
+    <div className='app-container'>
+      {console.log(this.state.products)}
+      <div className='app-container-bg-color'></div>
+      <WomenPage/>
     </div>
-  );
+   )
+}
 }
 
 export default App;

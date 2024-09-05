@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto&display=swap');
+
+:root {
+    --theme-color: #5ECE7B;
+}
+
+header {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+   /* width: 100%; */
+   padding: 2rem 3rem;
+}
+
+nav {
+    display: inline;
+    flex: 2;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 2;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    outline: none;
+    font-family: "Raleway";
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+nav a {
+    border-bottom: solid 2px transparent;
+    padding: 2rem 1rem;
+}
+
+.nav-a-focus {
+    border-color: var(--theme-color);
+    color: var(--theme-color);
+}
+
+.a-icon {
+    width: 2rem;
+}
+
+.cart-icon {
+    width: 1rem;
+    display: flex;
+    position: relative;
+}
+
+.item-count {
+    position: absolute;
+    border-radius: 50%;
+    right: -20px;
+    top: -12px;
+    /* padding: 1rem; */
+    font-weight: bold;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    background-color: black;
+    color: #fff;
+}
+
+.cart-container {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
