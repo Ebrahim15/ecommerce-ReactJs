@@ -33,8 +33,18 @@ class CartItem extends Component {
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ item: nextProps.item });  
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({ item: nextProps.item });  
+    // }
+
+    static getDerivedStateFromProps(nextProps, state) {
+        if(nextProps.item !== state.item) {
+            return {
+                ...state,
+                item: nextProps.item
+            }
+        }
+        return null;
     }
 
     render() {

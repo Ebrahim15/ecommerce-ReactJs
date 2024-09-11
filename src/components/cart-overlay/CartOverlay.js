@@ -51,8 +51,20 @@ class CartOverlay extends Component {
           selectedSize: 'M',
           selectedColor: 'orange'
         },
-      ]
+      ],
+      cart: this.props.cart
     }
+
+    static getDerivedStateFromProps(nextProps, state) {
+      console.log(nextProps)
+      if(nextProps.cart !== state.cart) {
+          return {
+              ...state,
+              cart: nextProps.cart
+          }
+      }
+      return null;
+  }
 
 
     handleItemQuantity = (sign, id, e) => {
@@ -85,13 +97,18 @@ class CartOverlay extends Component {
     }
 
     render() {
-        let itemsCount = this.state.items.length > 0 && this.state.items.map((item) => item.count).reduce((a, b) => a + b)
-        let totalprice = this.state.items.length > 0 && (Math.round(this.state.items.map((item) => item.price * item.count).reduce((a, b) => a + b) * 100) / 100).toFixed(2);
+        // let itemsCount = this.state.items.length > 0 && this.state.items.map((item) => item.count).reduce((a, b) => a + b)
+
+        // let totalprice = this.state.items.length > 0 && (Math.round(this.state.items.map((item) => item.price * item.count).reduce((a, b) => a + b) * 100) / 100).toFixed(2);
+        const {cart} = this.state
+        let itemsCount = cart?.length > 0 && cart.map((item) => item.count).reduce((a, b) => a + b)
+        let totalprice = cart?.length > 0 && (Math.round(cart.map((item) => item.price * item.count).reduce((a, b) => a + b) * 100) / 100).toFixed(2);
 
         return (
             <div className="cart-overlay-container" style={{display: `${this.props.show ? 'flex' : 'none'}`}}>
                 <h3>My Bag, {itemsCount} items</h3>
-                {this.state.items.length > 0 && this.state.items.map((item) => <CartItem key={item.title} item={item} handleItemQuantity={this.handleItemQuantity}/>)}
+                {/* {this.state.items.length > 0 && this.state.items.map((item) => <CartItem key={item.title} item={item} handleItemQuantity={this.handleItemQuantity}/>)} */}
+                {cart?.length > 0 && cart.items.map((item) => <CartItem key={item.title} item={item} handleItemQuantity={this.handleItemQuantity}/>)}
                 <p className="total-container">Total <span>${totalprice > 0 ? totalprice : 0}</span></p>
                 <button className="place-order-button">PLACE ORDER</button>
             </div>

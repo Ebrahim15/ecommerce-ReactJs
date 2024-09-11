@@ -4,12 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './components/header/Header';
+// import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// const client = new ApolloClient({
+//   uri: "http://localhost/website/api/GraphQL.php",
+//   cache: new InMemoryCache()
+// })
+
 root.render(
   <React.StrictMode>
-    <Header/>
-    <App />
+      {/* <Header/> */}
+      <App />
   </React.StrictMode>
 );
 

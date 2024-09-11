@@ -51,6 +51,7 @@ a {
 nav a {
     border-bottom: solid 2px transparent;
     padding: 2rem 1rem;
+    cursor: pointer;
 }
 
 .nav-a-focus {
@@ -66,14 +67,19 @@ nav a {
     width: 1rem;
     display: flex;
     position: relative;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    /* font-size: medium; */
 }
 
 .item-count {
+    font-size: medium;
     position: absolute;
     border-radius: 50%;
     right: -20px;
     top: -12px;
-    /* padding: 1rem; */
+    /* padding: 0.5rem; */
     font-weight: bold;
     width: 1.5rem;
     height: 1.5rem;
@@ -83,6 +89,7 @@ nav a {
     background-color: black;
     color: #fff;
 }
+
 
 .cart-container {
     display: flex;
