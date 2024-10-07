@@ -24,111 +24,111 @@ const withRouter = WrappedComponent => props => {
         selectedAttributes:[]
     }
     
-    // componentDidMount() {
-    //     // console.log(this.props.params.id)
-
-    //     const query = gql`
-    //         query getProduct($productId: ID!) {
-    //             product(productId: $productId){
-    //                 id,
-    //                 name,
-    //                 inStock,
-    //                 description,
-    //                 category{
-    //                     name
-    //                 },
-    //                 gallery {
-    //                     imageUrl
-    //                 },
-    //                 price {
-    //                     amount,
-    //                     currency{
-    //                     label,
-    //                     symbol
-    //                     },
-    //                     __typename
-    //                 },
-    //                 attributes{
-    //                     id,
-    //                     name,
-    //                     items{
-    //                     id,
-    //                     displayValue,
-    //                     value
-    //                     }
-    //                 }
-    //             } 
-    //         }
-    //     `
-
-    //     const variables = {
-    //         productId: "apple-airtag"
-    //     }
-
-    //     request({
-    //         url,
-    //         document: query,
-    //         variables
-    //         }).then((data) => this.setState({
-    //         ...this.state,
-    //         product: data.product,
-    //         loading: false
-    //         }))
-    // }
     componentDidMount() {
+        // console.log(this.props.params.id)
+
         const query = gql`
-            query product($productId: ID!) {
-                product(productId: $productId) {
-                    id
-                    name
-                    inStock
-                    description
-                    category {
+            query getProduct($productId: ID!) {
+                product(productId: $productId){
+                    id,
+                    name,
+                    inStock,
+                    description,
+                    category{
                         name
-                    }
+                    },
                     gallery {
                         imageUrl
-                    }
+                    },
                     price {
-                        amount
-                        currency {
-                            label
-                            symbol
-                        }
+                        amount,
+                        currency{
+                        label,
+                        symbol
+                        },
                         __typename
-                    }
-                    attributes {
-                        id
-                        name
-                        items {
-                            id
-                            displayValue
-                            value
+                    },
+                    attributes{
+                        id,
+                        name,
+                        items{
+                        id,
+                        displayValue,
+                        value
                         }
                     }
-                }
+                } 
             }
-        `;
-    
+        `
+
         const variables = {
-            "productId": "apple-airtag"
-        };
-    
-        console.log("Variables:", variables); // Debug: Check if productId is correct
-    
+            productId: this.props.params.id
+        }
+
         request({
             url,
             document: query,
-            variables: JSON.stringify(variables)
-        }).then((data) => {
-            console.log("Data:", data); // Debug: Check the response data
-            this.setState({
-                ...this.state,
-                product: data.product,
-                loading: false
-            });
-        });
+            variables
+            }).then((data) => this.setState({
+            ...this.state,
+            product: data.product,
+            loading: false
+            }))
     }
+    // componentDidMount() {
+    //     const query = gql`
+    //         query product($productId: ID!) {
+    //             product(productId: $productId) {
+    //                 id
+    //                 name
+    //                 inStock
+    //                 description
+    //                 category {
+    //                     name
+    //                 }
+    //                 gallery {
+    //                     imageUrl
+    //                 }
+    //                 price {
+    //                     amount
+    //                     currency {
+    //                         label
+    //                         symbol
+    //                     }
+    //                     __typename
+    //                 }
+    //                 attributes {
+    //                     id
+    //                     name
+    //                     items {
+    //                         id
+    //                         displayValue
+    //                         value
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     `;
+    
+    //     const variables = {
+    //         productId: this.props.params.id
+    //     };
+    
+    //     console.log("Variables:", variables); // Debug: Check if productId is correct
+    
+    //     request({
+    //         url,
+    //         document: query,
+    //         variables: variables
+    //     }).then((data) => {
+    //         console.log("Data:", data); // Debug: Check the response data
+    //         this.setState({
+    //             ...this.state,
+    //             product: data.product,
+    //             loading: false
+    //         });
+    //     });
+    // }
 
     handleAttributeClick = (e) => {
         console.log(e.target.name)
@@ -142,6 +142,7 @@ const withRouter = WrappedComponent => props => {
 
     handleAddToCart = (e) => {
         e.preventDefault()
+        console.log(this.props)
         this.props.handleUpdateCart({
             ...this.state.product,
             selectedAttributes: this.state.selectedAttributes,

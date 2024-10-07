@@ -87,7 +87,7 @@ class App extends Component {
           <Routes>
             <Route path='/' element={<ProductsList activeCategory={"all"} handleCategory={this.handleCategory} handleUpdateCart={this.handleUpdateCart}/>}/>
             <Route path='/clothes' element={<ProductsList activeCategory={"clothes"} handleCategory={this.handleCategory} handleUpdateCart={this.handleUpdateCart}/>}/>
-            <Route path='/clothes/:id' element={<ProductDetails/>}/>
+            <Route path='/clothes/:id' element={<ProductDetails handleUpdateCart={this.handleUpdateCart} handleShowCart={this.handleShowCart}/>}/>
             <Route path='/tech' element={<ProductsList activeCategory={"tech"} handleCategory={this.handleCategory} handleUpdateCart={this.handleUpdateCart}/>}/>
             <Route path='/tech/:id' element={<ProductDetails handleUpdateCart={this.handleUpdateCart} handleShowCart={this.handleShowCart}/>}/>
             <Route path='*' element={<WrongRoute error={"not found :'("}/>}/>

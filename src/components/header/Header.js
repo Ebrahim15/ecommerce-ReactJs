@@ -25,7 +25,6 @@ class Header extends Component {
         request(url, getCategories).then((data) => {
             this.setState({
                 ...this.state,
-
                 nav: data.categories.map((category, index) => {
                     return {
                         name: category.name,

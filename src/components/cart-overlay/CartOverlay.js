@@ -4,15 +4,7 @@ import CartItem from "../cart-item/CartItem";
 import { gql, request } from "graphql-request";
 import { url } from "../../GraphQL";
 
-const mutation = gql`
-  mutation AddOrder($orderType: OrderInput!) {
-    addOrder(order: $orderType) {
-      cart {
-        price
-      }
-    }
-  }
-`
+
 
 class CartOverlay extends Component {
     state = {
@@ -35,20 +27,23 @@ class CartOverlay extends Component {
     // }
 
     handlePlaceOrder = () => {
-        const orderItems = this.state.cart.map(item => ({
-            productId: item.id,
-            selectedAttributes: item.selectedAttributes,
-            price: item.price[0].amount,
-            typename: "order"
-            // Add other necessary fields from your item object
-        }));
-    
-        const orderInput = {
-            cart: orderItems
-        };
+        const mutation = gql`
+        mutation AddOrder($cart: OrderInput!) {
+          addOrder(cart: $cart) {
+            cart {
+              productId
+            }
+          }
+        }
+      `
     
         const variables = {
-            order: orderInput
+            cart: this.state.cart.map((product) => {
+              return {
+                productId: product.id,
+                // selectedAttributes: product.selectedAttributes,
+              }
+            })
         };
     
         request(url, mutation, variables).then((data) => console.log(data));
