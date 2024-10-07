@@ -1,0 +1,97 @@
+.image-carousel-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.thumbnail-list {
+    direction: rtl;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-gutter: stable;
+}
+
+.thumbnail-list > * { direction: ltr; }
+.thumbnail-list:hover {
+    overflow-y: auto;
+}
+
+.thumbnail-list img {
+    width: 100px;
+    /* height: 100px; */
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.thumbnail-list img.active {
+    /* border: 2px solid blue; */
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    scrollbar-gutter: stable;
+    max-height: 500px;
+}
+
+.carousel:hover {
+    overflow: auto;
+}
+
+.main-image {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: cover;
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* background: none; */
+    background-color: black;
+    opacity: 0.5;
+    transition: opacity 0.5s;
+    padding: 1rem;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.prev-button:hover,
+.next-button:hover{
+    opacity: 1;
+}
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

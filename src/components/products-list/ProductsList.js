@@ -12,13 +12,26 @@ const getProducts = gql`
       id,
       name,
       inStock,
-      gallery,
-      category,
+      category{
+        name
+      },
+      gallery {
+        imageUrl
+      },
       price {
         amount,
-        currency {
+        currency{
+          label,
           symbol
-          label
+        }
+      },
+      attributes{
+        id,
+        name,
+        items{
+          id,
+          displayValue,
+          value
         }
       }
     }
@@ -28,7 +41,8 @@ const getProducts = gql`
 class ProductsList extends Component {
     state = {
         products: [],
-        activeCategory: this.props.activeCategory
+        activeCategory: this.props.activeCategory,
+        loading: true
       }
 
       // static getDerivedStateFromProps(nextProps, state) {
@@ -44,27 +58,29 @@ class ProductsList extends Component {
       componentDidMount() {
         request(url, getProducts).then((data) => this.setState({
           ...this.state,
-          products: data.products
+          products: data.products,
+          loading: false
         }))
 
         this.props.handleCategory(this.props.activeCategory)
       }
 
     render() {
-      const {activeCategory, products} = this.state;
+      const {activeCategory, products, loading} = this.state;
       const { handleUpdateCart } = this.props
       const title = activeCategory[0].toUpperCase() + activeCategory.slice(1)
-      
+      console.log(products)
       return (
-            <div className="women-container">
-                <p className="page-title">{title}</p>
-                <div className="women-products-container">
-                    {activeCategory === "all" ? products?.map((product) => <ProductCard data-testid={`product-${product.name.replace(/ /g, "-").toLowerCase()}`} key={product.id} product={product} handleUpdateCart={handleUpdateCart}/>) : 
-                    products?.filter((product) => product.category === activeCategory).map((product) => <ProductCard key={product.id} product={product} handleUpdateCart={handleUpdateCart}/>)
-                    }
-                </div>
+        loading ? <div>...Loading</div> : 
+        <div className="products-list-container">
+            <p className="page-title">{title}</p>
+            <div className="products-container">
+                {activeCategory === "all" ? products?.map((product) => <ProductCard data-testid={`product-${product.name.replace(/ /g, "-").toLowerCase()}`} key={product.id} product={product} handleUpdateCart={handleUpdateCart}/>) : 
+                products?.filter((product) => product.category.name === activeCategory).map((product) => <ProductCard key={product.id} product={product} handleUpdateCart={handleUpdateCart}/>)
+                }
             </div>
-        )
+        </div>
+      )
     }
 }
 

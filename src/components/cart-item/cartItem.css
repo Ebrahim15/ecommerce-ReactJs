@@ -24,13 +24,19 @@
     font-weight: bold;
 }
 
-.item-size-container {
+.attribute-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.item-attribute-container {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
 }
 
-.size-button {
+.attribute-button {
     border: 1px solid black;
     background-color: white;
     width: 1rem;
@@ -41,7 +47,7 @@
     justify-content: center;
 }
 
-.selected-size-button {
+.selected-attribute-button {
     background-color: black;
     color: white;
 }

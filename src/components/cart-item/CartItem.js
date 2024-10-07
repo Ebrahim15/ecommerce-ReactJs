@@ -3,7 +3,7 @@ import './cartItem.css'
 
 class CartItem extends Component {
     // item = this.props.item
-    handleItemQuantity = this.props.handleItemQuantity
+    handleCartItemQuantity = this.props.handleCartItemQuantity
 
     state = {
         activeSize: '',
@@ -48,27 +48,41 @@ class CartItem extends Component {
     }
 
     render() {
+        // const{ item } = this.props
+        const{ item } = this.state
+
         return (
             <div className="item-container">
                 <div className="item-details-container">
-                    <h3 className="item-title">{this.state.item.title}</h3>
-                    <p className="item-price">${this.state.item.price}</p>
-                    <p>Size:</p>
-                    <div className="item-size-container">
-                        {this.state.item.sizes.map((size) => <button key={size}  className={`size-button ${this.state.item.selectedSize === size ? "selected-size-button" : null}`}>{size}</button>)}
+                    <h3 className="item-title">{item.name}</h3>
+                    <p className="item-price">${item.price[0].amount}</p>
+                    {item.attributes.map((attribute) => attribute.id.toLowerCase() !== "color" ? <div key={attribute.name} className="attribute-container" data-testid={`cart-item-attribute-${attribute.name.replace(/ /g, "-").toLowerCase()}`}>
+                        <p>{attribute.name}:</p>
+                        <div className="item-attribute-container">
+                            {attribute.items.map((attributeItem, index) => <button 
+                            key={attributeItem.id} 
+                            data-testid={`${item.selectedAttributes.filter((selectedAttribute) => selectedAttribute.attributeValue === attributeItem.value).length > 0 ? `cart-item-attribute-${attribute.name.replace(/ /g, "-").toLowerCase()}-${attribute.name.replace(/ /g, "-").toLowerCase()}-selected` : `cart-item-attribute-${attribute.name.replace(/ /g, "-").toLowerCase()}-${attribute.name.replace(/ /g, "-").toLowerCase()}`}`}  
+                            className={`attribute-button ${item.selectedAttributes.filter((selectedAttribute) => selectedAttribute.attributeValue === attributeItem.value).length > 0 ? "selected-attribute-button" : null}`}>
+                                {attributeItem.value}</button>)}
+                        </div>
                     </div>
-                    <p>Color:</p>
-                    <div className="item-color-container">
-                        {this.state.item.colors.map((color) => <div key={color.hex} className={`color-button-container ${this.state.item.selectedColor === color.name ? 'selected-color-button' : null}`}><button key={color.hex} className={`color-button`} style={{backgroundColor: color.hex}}></button></div>)}
+                    :
+                    <div key={attribute.name} className="attribute-container">
+                        <p>{attribute.name}:</p>
+                        <div className="item-color-container">
+                            {attribute.items.map((color, index) => <div key={color.id} className={`color-button-container ${item.selectedAttributes.filter((selectedAttribute) => selectedAttribute.attributeValue === color.value).length > 0 ? 'selected-color-button' : null}`}><button key={color.value} className={`color-button`} style={{backgroundColor: color.value}}></button></div>)}
+                        </div>
                     </div>
+                    )}
+                    
                 </div>
                 <div className="item-count-image-container">
                     <div className="item-count-button-container">
-                        <button onClick={() => this.handleItemQuantity('+', this.state.item.id)}>+</button>
-                        <p>{this.state.item.count}</p>
-                        <button onClick={() => this.handleItemQuantity('-', this.state.item.id)}>-</button>
+                        <button data-testid='cart-item-amount-increase' onClick={() => this.handleCartItemQuantity('increment', item.id)}>+</button>
+                        <p data-testid='cart-item-amount'>{item.count}</p>
+                        <button data-testid='cart-item-amount-decrease' onClick={() => this.handleCartItemQuantity('decrement', item.id)}>-</button>
                     </div>
-                    <div className="item-image-container"><img src={this.state.item.imgSrc} alt={this.state.item.title}></img></div>
+                    <div className="item-image-container"><img src={item.gallery[0].imageUrl} alt={item.name}></img></div>
                 </div>
             </div>
         )

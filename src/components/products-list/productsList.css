@@ -1,15 +1,17 @@
-.women-container {
+.products-list-container {
     display: flex;
     flex-direction: column;
     padding: 5rem;
     gap: 5rem;
+    width: 100%;
+    align-items: start;
 }
 
 .page-title {
     font-size: 42px;
 }
 
-.women-products-container {
+.products-container {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 3rem;
